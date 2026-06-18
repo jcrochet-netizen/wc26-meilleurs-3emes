@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-18T15:37:46.545Z",
+  "updated": "2026-06-18T18:28:56.374Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
@@ -94,12 +94,12 @@
       "name": "Czech Republic",
       "code": "CZE",
       "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18718.png",
-      "played": 1,
-      "pts": 0,
-      "gf": 1,
-      "ga": 2,
+      "played": 2,
+      "pts": 1,
+      "gf": 2,
+      "ga": 3,
       "gd": -1,
-      "fair": 0,
+      "fair": -1,
       "fifa": 44
     },
     {
