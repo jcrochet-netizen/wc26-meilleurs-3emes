@@ -129,10 +129,23 @@
 }
 
 @media (max-width:560px){
+  /* On masque Fair-Play et FIFA, et on laisse les 6 colonnes utiles tenir
+     dans l'écran (plus de min-width → plus de scroll horizontal). */
   #wc26-best3 .wc26-c-fair, #wc26-best3 .wc26-fair-cell{display:none;}
   #wc26-best3 .wc26-c-fifa, #wc26-best3 .wc26-fifa-cell{display:none;}
-  #wc26-best3 .wc26-title h2{font-size:18px;}
-  #wc26-best3 .wc26-table{font-size:13px;}
+  #wc26-best3 .wc26-table{min-width:0; font-size:13px;}
+  #wc26-best3 .wc26-table thead th{padding:7px 4px; font-size:10px; letter-spacing:.2px;}
+  #wc26-best3 .wc26-table tbody td > div{padding:7px 4px;}
+  #wc26-best3 .wc26-teamcell{gap:7px;}
+  #wc26-best3 .wc26-flag{width:20px; height:20px;}
+  #wc26-best3 .wc26-pts{font-size:14px;}
+  #wc26-best3 .wc26-legend{padding:8px 12px; gap:10px;}
+  #wc26-best3 .wc26-updated{font-size:11px;}
+}
+@media (max-width:380px){
+  /* Très petits écrans : on réduit encore légèrement le nom des équipes. */
+  #wc26-best3 .wc26-name{font-size:12px;}
+  #wc26-best3 .wc26-table thead th{font-size:9px;}
 }
 </style>
 
