@@ -1,11 +1,12 @@
 {
-  "updated": "2026-06-18T07:36:37.223Z",
+  "updated": "2026-06-18T08:03:00.929Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
   "teams": [
     {
       "group": "F",
+      "id": 18694,
       "name": "Netherlands",
       "code": "NED",
       "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/18694.png",
@@ -19,6 +20,7 @@
     },
     {
       "group": "C",
+      "id": 18704,
       "name": "Brazil",
       "code": "BRA",
       "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18704.png",
@@ -32,32 +34,35 @@
     },
     {
       "group": "G",
-      "name": "Egypt",
-      "code": "EGY",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18546.png",
+      "id": 18743,
+      "name": "Belgium",
+      "code": "BEL",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18743.png",
       "played": 1,
       "pts": 1,
       "gf": 1,
       "ga": 1,
       "gd": 0,
       "fair": -2,
-      "fifa": 29
+      "fifa": 10
     },
     {
       "group": "B",
-      "name": "Canada",
-      "code": "CAN",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/18572.png",
+      "id": 18544,
+      "name": "Qatar",
+      "code": "QAT",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18544.png",
       "played": 1,
       "pts": 1,
       "gf": 1,
       "ga": 1,
       "gd": 0,
       "fair": -2,
-      "fifa": 32
+      "fifa": 49
     },
     {
       "group": "K",
+      "id": 18701,
       "name": "Portugal",
       "code": "POR",
       "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18701.png",
@@ -71,6 +76,7 @@
     },
     {
       "group": "H",
+      "id": 18710,
       "name": "Spain",
       "code": "ESP",
       "logo": "https://cdn.sportmonks.com/images/soccer/teams/22/18710.png",
@@ -84,6 +90,7 @@
     },
     {
       "group": "A",
+      "id": 18718,
       "name": "Czech Republic",
       "code": "CZE",
       "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18718.png",
@@ -97,6 +104,7 @@
     },
     {
       "group": "E",
+      "id": 18573,
       "name": "Ecuador",
       "code": "ECU",
       "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18573.png",
@@ -110,6 +118,7 @@
     },
     {
       "group": "L",
+      "id": 18717,
       "name": "Panama",
       "code": "PAN",
       "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/18717.png",
@@ -123,6 +132,7 @@
     },
     {
       "group": "I",
+      "id": 18558,
       "name": "Senegal",
       "code": "SEN",
       "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18558.png",
@@ -136,6 +146,7 @@
     },
     {
       "group": "J",
+      "id": 18559,
       "name": "Jordan",
       "code": "JOR",
       "logo": "https://cdn.sportmonks.com/images/soccer/teams/31/18559.png",
@@ -149,6 +160,7 @@
     },
     {
       "group": "D",
+      "id": 18716,
       "name": "Türkiye",
       "code": "TUR",
       "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18716.png",

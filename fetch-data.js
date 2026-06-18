@@ -67,19 +67,23 @@ async function getJSON(url) {
 }
 
 /**
- * Score fair-play FIFA par équipe (participant_id) sur les matchs de groupe.
- * Barème (art. 13) — une seule déduction, la pire, par joueur et par match :
+ * Un seul passage sur les fixtures de la phase de groupes. Retourne :
+ *   - fair    : score fair-play FIFA par équipe (participant_id)
+ *   - matches : résultats des matchs terminés [{a, ga, b, gb}] (pour la confrontation directe)
+ *
+ * Fair-play (art. 13) — une seule déduction, la pire, par joueur et par match :
  *   1 jaune = -1 | 2e jaune (expulsion indirecte) = -3 | rouge direct = -4 | jaune + rouge direct = -5
  * Types d'événements SportMonks : 19 = jaune, 21 = jaune/rouge (2e jaune), 20 = rouge direct.
  */
-async function computeFairPlay(stageId) {
+async function computeFromFixtures(stageId) {
   const [start, end] = GROUP_WINDOW;
-  const fairByTeam = {};
+  const fair = {};
+  const matches = [];
   let page = 1;
   for (;;) {
     const url =
       `${BASE}/fixtures/between/${start}/${end}` +
-      `?api_token=${API_TOKEN}&include=events.type&filters=fixtureLeagues:732` +
+      `?api_token=${API_TOKEN}&include=participants;scores;events.type&filters=fixtureLeagues:732` +
       `&per_page=50&page=${page}`;
     const json = await getJSON(url);
     const fixtures = json.data || [];
@@ -87,7 +91,7 @@ async function computeFairPlay(stageId) {
     for (const fx of fixtures) {
       if (stageId && fx.stage_id !== stageId) continue; // matchs de groupe uniquement
 
-      // Regroupe les cartons par (équipe, joueur) dans ce match.
+      // --- Cartons → fair-play (par équipe, joueur) ---
       const byPlayer = {};
       for (const ev of fx.events || []) {
         if (ev.rescinded) continue;
@@ -109,7 +113,21 @@ async function computeFairPlay(stageId) {
         else if (o.r >= 1) p = -4;              // rouge direct
         else if (o.y >= 2) p = -3;              // deux jaunes sans type 21 (repli)
         else if (o.y === 1) p = -1;             // 1 jaune
-        fairByTeam[o.part] = (fairByTeam[o.part] || 0) + p;
+        fair[o.part] = (fair[o.part] || 0) + p;
+      }
+
+      // --- Résultat final (matchs terminés) pour la confrontation directe ---
+      if (fx.state_id === 5) { // 5 = Full-Time
+        const goals = {};
+        for (const s of fx.scores || []) {
+          if (s.description === "CURRENT" && s.participant_id != null && s.score) {
+            goals[s.participant_id] = s.score.goals;
+          }
+        }
+        const ids = Object.keys(goals);
+        if (ids.length === 2) {
+          matches.push({ a: +ids[0], ga: goals[ids[0]], b: +ids[1], gb: goals[ids[1]] });
+        }
       }
     }
 
@@ -118,7 +136,61 @@ async function computeFairPlay(stageId) {
     page++;
     if (page > 10) break; // garde-fou
   }
-  return fairByTeam;
+  return { fair, matches };
+}
+
+// Mini-classement de confrontation directe parmi un sous-ensemble d'équipes.
+function h2hStats(teams, matches) {
+  const ids = new Set(teams.map((t) => t.id));
+  const st = {};
+  teams.forEach((t) => (st[t.id] = { pts: 0, gd: 0, gf: 0 }));
+  for (const m of matches) {
+    if (!ids.has(m.a) || !ids.has(m.b)) continue;
+    const A = st[m.a], B = st[m.b];
+    A.gf += m.ga; A.gd += m.ga - m.gb;
+    B.gf += m.gb; B.gd += m.gb - m.ga;
+    if (m.ga > m.gb) A.pts += 3;
+    else if (m.ga < m.gb) B.pts += 3;
+    else { A.pts++; B.pts++; }
+  }
+  return st;
+}
+
+/**
+ * Classe les équipes d'un groupe selon l'ordre FIFA de phase de groupes :
+ *   points → diff. de buts → buts marqués → confrontation directe (pts/diff/buts
+ *   entre les ex æquo) → fair-play → classement mondial FIFA.
+ * (On ne se fie PAS au champ "position" de SportMonks, peu fiable sur les départages.)
+ */
+function rankGroup(teams, matches) {
+  const sorted = teams.slice().sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
+  const out = [];
+  let i = 0;
+  while (i < sorted.length) {
+    let j = i + 1;
+    while (
+      j < sorted.length &&
+      sorted[j].pts === sorted[i].pts &&
+      sorted[j].gd === sorted[i].gd &&
+      sorted[j].gf === sorted[i].gf
+    ) j++;
+    const run = sorted.slice(i, j);
+    if (run.length > 1) {
+      const h = h2hStats(run, matches);
+      run.sort(
+        (a, b) =>
+          h[b.id].pts - h[a.id].pts ||
+          h[b.id].gd - h[a.id].gd ||
+          h[b.id].gf - h[a.id].gf ||
+          (b.fair || 0) - (a.fair || 0) ||
+          (a.fifa || 999) - (b.fifa || 999) ||
+          a.name.localeCompare(b.name)
+      );
+    }
+    out.push(...run);
+    i = j;
+  }
+  return out;
 }
 
 async function main() {
@@ -131,37 +203,38 @@ async function main() {
   if (!rows.length) throw new Error("Réponse SportMonks vide (standings).");
   const stageId = rows[0].stage_id;
 
-  // 2) Fair-play (cartons) par équipe.
-  const fairByTeam = await computeFairPlay(stageId);
+  // 2) Fair-play (cartons) + résultats des matchs (confrontation directe).
+  const { fair: fairByTeam, matches } = await computeFromFixtures(stageId);
 
+  // Regroupe les 4 équipes de chaque groupe avec leurs stats globales.
   const groups = {};
   for (const r of rows) {
     const name = (r.group && r.group.name) || "";
     const letter = (name.match(/Group\s+([A-L])/i) || [])[1];
     if (!letter) continue;
-    (groups[letter] = groups[letter] || []).push(r);
-  }
-
-  const thirds = [];
-  for (const letter of Object.keys(groups)) {
-    const arr = groups[letter].slice().sort((a, b) => a.position - b.position);
-    const third = arr.find((r) => r.position === 3) || arr[2];
-    if (!third) continue;
-    const d = third.details;
-    const p = third.participant || {};
-    thirds.push({
+    const d = r.details;
+    const p = r.participant || {};
+    (groups[letter] = groups[letter] || []).push({
       group: letter,
+      id: p.id,
       name: p.name || "—",
       code: p.short_code || "",
       logo: p.image_path || "",
       played: det(d, "overall-matches-played"),
-      pts: det(d, "overall-points") || Number(third.points) || 0,
+      pts: det(d, "overall-points") || Number(r.points) || 0,
       gf: det(d, "overall-goals-for"),
       ga: det(d, "overall-goals-against"),
       gd: det(d, "goal-difference"),
       fair: fairByTeam[p.id] || 0,
       fifa: FIFA_RANK[p.name] || null,
     });
+  }
+
+  // 3ème de chaque groupe, déterminé par NOTRE classement (vrais critères FIFA).
+  const thirds = [];
+  for (const letter of Object.keys(groups)) {
+    const ranked = rankGroup(groups[letter], matches);
+    if (ranked[2]) thirds.push(ranked[2]);
   }
 
   // 3) Tri selon les critères FIFA a→f.

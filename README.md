@@ -78,8 +78,12 @@ Le tri des 12 troisièmes applique l'ordre complet de l'art. 13 FIFA :
    phase de groupes (prochaine publication : 20 juillet 2026). À rafraîchir
    manuellement si une nouvelle édition sort avant.
 
-Le 3ème de chaque groupe est déterminé par la `position` SportMonks (qui applique
-déjà les départages internes au groupe, dont la confrontation directe).
+Le 3ème de chaque groupe est déterminé par **notre propre classement** intra-groupe
+(`fetch-data.js` → `rankGroup`), qui applique l'ordre FIFA complet : points → diff →
+buts → confrontation directe → fair-play → rang FIFA. On ne se fie PAS au champ
+`position` de SportMonks, qui s'est révélé incorrect sur les départages fins (il
+ignore le fair-play et le classement FIFA — ex. Groupe B après J1, où les 4 équipes
+étaient à égalité et SportMonks plaçait mal le 3ème).
 
 ## Limites connues
 
