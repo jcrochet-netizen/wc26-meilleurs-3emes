@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WC26 — meilleurs 3èmes (embed)</title>
+  <style>
+    html,body{margin:0;padding:0;background:transparent;}
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    // Page d'embarquement pour <iframe>. Charge le widget de la langue demandée
+    // (?lang=fr|en|es|pt|it), exécute son script, et informe le parent de sa
+    // hauteur (auto-resize optionnel côté WordPress).
+    var MAP = {
+      fr: "widget-meilleurs-3emes-wc2026.html",
+      en: "widget-en.html",
+      es: "widget-es.html",
+      pt: "widget-pt.html",
+      it: "widget-it.html"
+    };
+    var lang = (new URLSearchParams(location.search).get("lang") || "fr").toLowerCase();
+    var file = MAP[lang] || MAP.fr;
+    document.documentElement.setAttribute("lang", lang);
+
+    fetch(file, { cache: "no-store" })
+      .then(function (r) { return r.text(); })
+      .then(function (html) {
+        var app = document.getElementById("app");
+        app.innerHTML = html;
+        app.querySelectorAll("script").forEach(function (old) {
+          var s = document.createElement("script");
+          if (old.src) s.src = old.src; else s.textContent = old.textContent;
+          document.body.appendChild(s);
+        });
+        function postHeight() {
+          var h = document.body.scrollHeight;
+          try { parent.postMessage({ wc26height: h }, "*"); } catch (e) {}
+        }
+        setTimeout(postHeight, 300);
+        setTimeout(postHeight, 1200);
+        setInterval(postHeight, 2000);
+      })
+      .catch(function (e) {
+        document.getElementById("app").textContent = "Erreur de chargement : " + e;
+      });
+  </script>
+</body>
+</html>
