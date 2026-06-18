@@ -1,0 +1,394 @@
+<!-- ============================================================= -->
+<!--  WIDGET : Classement des meilleurs 3èmes — Coupe du Monde 2026 -->
+<!--  À coller dans un bloc "HTML personnalisé" de WordPress.       -->
+<!--                                                                 -->
+<!--  POUR METTRE À JOUR LES DONNÉES :                               -->
+<!--   → soit tu édites le tableau WC26_DATA.teams ci-dessous,       -->
+<!--     le classement se re-trie automatiquement selon les          -->
+<!--     critères FIFA (points, diff, BP, fair-play, classement).    -->
+<!--   → soit tu renseignes WC26_CONFIG.dataUrl avec l'adresse d'un  -->
+<!--     fichier JSON que tu héberges (auto-update sans toucher au   -->
+<!--     code). Format JSON attendu = identique à WC26_DATA.         -->
+<!--                                                                 -->
+<!--  POUR CHANGER DE LANGUE : WC26_CONFIG.lang = 'fr'|'en'|'es'|'pt'-->
+<!-- ============================================================= -->
+
+<div id="wc26-best3" class="wc26-best3" data-state="loading">
+  <div class="wc26-legend">
+    <span class="wc26-pill wc26-pill-q"><span class="wc26-dot"></span><span data-i18n="legendQ">Qualifié</span></span>
+    <span class="wc26-pill wc26-pill-e"><span class="wc26-dot"></span><span data-i18n="legendE">Éliminé</span></span>
+    <span class="wc26-updated" data-i18n-attr="title" data-i18n-title="updatedTip">
+      <span data-i18n="updated">Mis à jour</span> : <time id="wc26-time">&mdash;</time>
+    </span>
+  </div>
+
+  <div class="wc26-tablewrap">
+    <table class="wc26-table">
+      <thead>
+        <tr>
+          <th class="wc26-c-pos" data-i18n="pos">Pos</th>
+          <th class="wc26-c-grp" data-i18n="group">Grp</th>
+          <th class="wc26-c-team" data-i18n="team">Équipe</th>
+          <th class="wc26-c-pts" data-i18n="pts" data-i18n-attr="title" data-i18n-title="ptsFull">Pts</th>
+          <th class="wc26-c-num" data-i18n="gd" data-i18n-attr="title" data-i18n-title="gdFull">Diff</th>
+          <th class="wc26-c-num" data-i18n="gf" data-i18n-attr="title" data-i18n-title="gfFull">BP</th>
+          <th class="wc26-c-num wc26-c-fair" data-i18n="fair" data-i18n-attr="title" data-i18n-title="fairFull">Fair-Play</th>
+          <th class="wc26-c-num wc26-c-fifa" data-i18n="fifa" data-i18n-attr="title" data-i18n-title="fifaFull">FIFA</th>
+        </tr>
+      </thead>
+      <tbody id="wc26-body"><!-- rempli par JS --></tbody>
+    </table>
+  </div>
+
+  <p class="wc26-note" data-i18n="criteria">Critères de départage FIFA, dans l'ordre : points &rsaquo; différence de buts &rsaquo; buts marqués &rsaquo; score fair-play (cartons) &rsaquo; classement mondial FIFA.</p>
+  <p class="wc26-source"><span data-i18n="sourceLabel">Source</span> : <a href="https://www.fifa.com/fr/tournaments/mens/worldcup/canadamexicousa2026/standings" target="_blank" rel="noopener">FIFA.com</a></p>
+</div>
+
+<style>
+/* ---- Scope total sous #wc26-best3 pour ne pas casser le thème ---- */
+#wc26-best3{
+  --q:#0f9d58; --q-bg:#e8f6ee; --q-bd:#bfe6cf;
+  --e:#d93636; --e-bg:#fdecec; --e-bd:#f5c9c9;
+  --ink:#15233b; --muted:#6a7686; --line:#e7eaf0; --row:#fff; --row-alt:#f7f8fb;
+  --brand1:#1b1f3b; --brand2:#3a2d7d;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink); max-width:760px; margin:0 auto; line-height:1.5;
+  -webkit-font-smoothing:antialiased; box-sizing:border-box;
+}
+#wc26-best3 *{box-sizing:border-box;}
+#wc26-best3 .wc26-head{
+  background:linear-gradient(135deg,var(--brand1),var(--brand2));
+  color:#fff; border-radius:16px 16px 0 0; padding:20px 22px 18px;
+}
+#wc26-best3 .wc26-title{display:flex; align-items:center; gap:10px;}
+#wc26-best3 .wc26-cup{font-size:26px; line-height:1;}
+#wc26-best3 .wc26-title h2{margin:0; font-size:21px; font-weight:700; letter-spacing:-.2px; color:#fff;}
+#wc26-best3 .wc26-title sup{font-size:.6em;}
+#wc26-best3 .wc26-sub{margin:8px 0 0; font-size:13.5px; color:rgba(255,255,255,.82); max-width:60ch;}
+#wc26-best3 .wc26-sub sup{font-size:.7em;}
+
+#wc26-best3 .wc26-legend{
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  padding:12px 22px; background:#fbfbfd; border:1px solid var(--line);
+  border-radius:16px 16px 0 0;
+}
+#wc26-best3 .wc26-pill{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600;}
+#wc26-best3 .wc26-dot{width:11px; height:11px; border-radius:50%; display:inline-block;}
+#wc26-best3 .wc26-pill-q .wc26-dot{background:var(--q);} #wc26-best3 .wc26-pill-q{color:var(--q);}
+#wc26-best3 .wc26-pill-e .wc26-dot{background:var(--e);} #wc26-best3 .wc26-pill-e{color:var(--e);}
+#wc26-best3 .wc26-updated{margin-left:auto; font-size:12px; color:var(--muted);}
+
+#wc26-best3 .wc26-tablewrap{border:1px solid var(--line); border-top:none; overflow-x:auto;}
+#wc26-best3 .wc26-table{width:100%; border-collapse:collapse; font-size:14px; min-width:520px;}
+#wc26-best3 .wc26-table thead th{
+  text-align:center; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.4px;
+  color:var(--muted); padding:11px 8px; background:#f2f3f7; border-bottom:1px solid var(--line); white-space:nowrap;
+}
+#wc26-best3 .wc26-c-team{text-align:left !important;}
+#wc26-best3 .wc26-table tbody td{padding:0; border-bottom:1px solid var(--line); text-align:center; vertical-align:middle;}
+#wc26-best3 .wc26-table tbody tr{background:var(--row);}
+#wc26-best3 .wc26-table tbody tr:nth-child(even){background:var(--row-alt);}
+#wc26-best3 .wc26-table tbody td > div{padding:11px 8px;}
+
+#wc26-best3 .wc26-pos{position:relative; font-weight:700; font-variant-numeric:tabular-nums;}
+#wc26-best3 tr.is-q .wc26-pos::before,
+#wc26-best3 tr.is-e .wc26-pos::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px;}
+#wc26-best3 tr.is-q .wc26-pos::before{background:var(--q);}
+#wc26-best3 tr.is-e .wc26-pos::before{background:var(--e);}
+
+#wc26-best3 .wc26-grp{font-weight:700; color:var(--muted);}
+#wc26-best3 .wc26-teamcell{display:flex !important; align-items:center; gap:10px; text-align:left;}
+#wc26-best3 .wc26-flag{width:26px; height:26px; border-radius:4px; object-fit:contain; flex:none; background:#fff;}
+#wc26-best3 .wc26-name{font-weight:600;}
+#wc26-best3 .wc26-num{font-variant-numeric:tabular-nums; color:#33405a;}
+#wc26-best3 .wc26-pts{font-weight:800; font-size:15px; font-variant-numeric:tabular-nums;}
+
+#wc26-best3 tr.is-q{ } /* fond géré ci-dessous pour garder le zébrage */
+#wc26-best3 tr.is-q td{background:linear-gradient(0deg,var(--q-bg),var(--q-bg));}
+#wc26-best3 tr.is-e td{background:linear-gradient(0deg,var(--e-bg),var(--e-bg));}
+#wc26-best3 tr.is-q .wc26-pts{color:var(--q);}
+#wc26-best3 tr.is-e .wc26-pts{color:var(--e);}
+
+#wc26-best3 tr.wc26-cutline td{
+  padding:0; border:none; background:transparent;
+}
+#wc26-best3 tr.wc26-cutline .wc26-cut{
+  display:flex; align-items:center; gap:10px; padding:7px 16px;
+  font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:var(--e);
+  background:#fff;
+}
+#wc26-best3 tr.wc26-cutline .wc26-cut::before,
+#wc26-best3 tr.wc26-cutline .wc26-cut::after{content:""; flex:1; height:1px; background:repeating-linear-gradient(90deg,var(--e-bd) 0 6px,transparent 6px 12px);}
+
+#wc26-best3 .wc26-note{margin:12px 4px 2px; font-size:11.5px; color:var(--muted); line-height:1.5;}
+#wc26-best3 .wc26-source{margin:4px 4px 0; font-size:11.5px; color:var(--muted);}
+#wc26-best3 .wc26-source a{color:var(--brand2); text-decoration:none; font-weight:600;}
+#wc26-best3 .wc26-source a:hover{text-decoration:underline;}
+
+#wc26-best3[data-state="loading"] .wc26-tablewrap::after{
+  content:""; display:block; height:120px;
+}
+
+@media (max-width:560px){
+  #wc26-best3 .wc26-c-fair, #wc26-best3 .wc26-fair-cell{display:none;}
+  #wc26-best3 .wc26-c-fifa, #wc26-best3 .wc26-fifa-cell{display:none;}
+  #wc26-best3 .wc26-title h2{font-size:18px;}
+  #wc26-best3 .wc26-table{font-size:13px;}
+}
+</style>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============================================================
+     1) CONFIGURATION
+     ============================================================ */
+  var WC26_CONFIG = {
+    lang: "fr",          // "fr" | "en" | "es" | "pt"
+    // URL du data.json généré par fetch-data.js (SportMonks) et hébergé.
+    // Ex (GitHub raw) : "https://raw.githubusercontent.com/<compte>/<repo>/main/data.json"
+    // Laisse vide pour utiliser les données de repli ci-dessous.
+    dataUrl: "",
+    refreshSeconds: 600  // re-fetch toutes les 10 min (0 = pas de refresh auto)
+  };
+
+  /* ============================================================
+     2) DONNÉES DE REPLI
+        Utilisées si dataUrl est vide ou injoignable. Mises à jour
+        automatiquement par fetch-data.js (source : SportMonks).
+        Format identique au data.json. Un objet = le 3ème d'un groupe.
+        logo = URL du drapeau | code = abréviation | gd = diff. de buts
+        gf = buts marqués | pts = points | played = matchs joués
+     ============================================================ */
+  var WC26_DATA = {
+    updated: "2026-06-17T19:50:39.420Z",
+    teams: [
+      { group:"F", name:"Netherlands",    code:"NED", logo:"https://cdn.sportmonks.com/images/soccer/teams/6/18694.png",  played:1, pts:1, gd: 0, gf:2, fair:-3, fifa:8 },
+      { group:"C", name:"Brazil",         code:"BRA", logo:"https://cdn.sportmonks.com/images/soccer/teams/16/18704.png", played:1, pts:1, gd: 0, gf:1, fair:-2, fifa:5 },
+      { group:"G", name:"Egypt",          code:"EGY", logo:"https://cdn.sportmonks.com/images/soccer/teams/18/18546.png", played:1, pts:1, gd: 0, gf:1, fair:-2, fifa:29 },
+      { group:"B", name:"Canada",         code:"CAN", logo:"https://cdn.sportmonks.com/images/soccer/teams/12/18572.png", played:1, pts:1, gd: 0, gf:1, fair:-2, fifa:32 },
+      { group:"H", name:"Spain",          code:"ESP", logo:"https://cdn.sportmonks.com/images/soccer/teams/22/18710.png", played:1, pts:1, gd: 0, gf:0, fair:-1, fifa:3 },
+      { group:"K", name:"Uzbekistan",     code:"UZB", logo:"https://cdn.sportmonks.com/images/soccer/teams/25/18745.png", played:0, pts:0, gd: 0, gf:0, fair:0,  fifa:50 },
+      { group:"L", name:"Ghana",          code:"GHA", logo:"https://cdn.sportmonks.com/images/soccer/teams/25/18553.png", played:0, pts:0, gd: 0, gf:0, fair:0,  fifa:73 },
+      { group:"A", name:"Czech Republic", code:"CZE", logo:"https://cdn.sportmonks.com/images/soccer/teams/30/18718.png", played:1, pts:0, gd:-1, gf:1, fair:0,  fifa:44 },
+      { group:"E", name:"Ecuador",        code:"ECU", logo:"https://cdn.sportmonks.com/images/soccer/teams/13/18573.png", played:1, pts:0, gd:-1, gf:0, fair:-1, fifa:28 },
+      { group:"I", name:"Senegal",        code:"SEN", logo:"https://cdn.sportmonks.com/images/soccer/teams/30/18558.png", played:1, pts:0, gd:-2, gf:1, fair:0,  fifa:16 },
+      { group:"J", name:"Jordan",         code:"JOR", logo:"https://cdn.sportmonks.com/images/soccer/teams/31/18559.png", played:1, pts:0, gd:-2, gf:1, fair:0,  fifa:67 },
+      { group:"D", name:"Türkiye",        code:"TUR", logo:"https://cdn.sportmonks.com/images/soccer/teams/28/18716.png", played:1, pts:0, gd:-2, gf:0, fair:-1, fifa:26 }
+    ]
+  };
+
+  /* ============================================================
+     3) TRADUCTIONS
+     ============================================================ */
+  var I18N = {
+    fr:{ title:"Classement des meilleurs 3<sup>es</sup>",
+         subtitle:"Coupe du Monde 2026 &mdash; les 8 meilleures équipes classées 3<sup>es</sup> se qualifient pour les 16<sup>es</sup> de finale.",
+         pos:"Pos", group:"Grp", team:"Équipe", played:"J", gd:"Diff", gf:"BP", fair:"Fair-Play", fifa:"FIFA", pts:"Pts",
+         playedFull:"Matchs joués", gdFull:"Différence de buts", gfFull:"Buts marqués", fairFull:"Score fair-play", fifaFull:"Classement mondial FIFA", ptsFull:"Points",
+         legendQ:"Qualifié", legendE:"Éliminé", qualLine:"Ligne de qualification",
+         updated:"Mis à jour", updatedTip:"Date de dernière mise à jour des données", sourceLabel:"Source",
+         criteria:"Critères de départage FIFA, dans l'ordre : points &rsaquo; différence de buts &rsaquo; buts marqués &rsaquo; score fair-play (cartons) &rsaquo; classement mondial FIFA.",
+         locale:"fr-FR" },
+    en:{ title:"Best third-placed teams ranking",
+         subtitle:"2026 World Cup &mdash; the 8 best third-placed teams qualify for the round of 32.",
+         pos:"Pos", group:"Grp", team:"Team", played:"P", gd:"GD", gf:"GF", fair:"Fair-Play", fifa:"FIFA", pts:"Pts",
+         playedFull:"Matches played", gdFull:"Goal difference", gfFull:"Goals for", fairFull:"Fair-play score", fifaFull:"FIFA World Ranking", ptsFull:"Points",
+         legendQ:"Qualified", legendE:"Eliminated", qualLine:"Qualification line",
+         updated:"Updated", updatedTip:"Date the data was last updated", sourceLabel:"Source",
+         criteria:"FIFA tie-breakers, in order: points &rsaquo; goal difference &rsaquo; goals scored &rsaquo; fair-play score (cards) &rsaquo; FIFA World Ranking.",
+         locale:"en-GB" },
+    es:{ title:"Clasificación de los mejores terceros",
+         subtitle:"Mundial 2026 &mdash; los 8 mejores terceros se clasifican para los dieciseisavos de final.",
+         pos:"Pos", group:"Gr", team:"Selección", played:"PJ", gd:"DG", gf:"GF", fair:"Fair-Play", fifa:"FIFA", pts:"Pts",
+         playedFull:"Partidos jugados", gdFull:"Diferencia de goles", gfFull:"Goles a favor", fairFull:"Puntuación de juego limpio", fifaFull:"Ranking Mundial FIFA", ptsFull:"Puntos",
+         legendQ:"Clasificado", legendE:"Eliminado", qualLine:"Línea de clasificación",
+         updated:"Actualizado", updatedTip:"Fecha de última actualización de los datos", sourceLabel:"Fuente",
+         criteria:"Criterios de desempate FIFA, en orden: puntos &rsaquo; diferencia de goles &rsaquo; goles marcados &rsaquo; juego limpio (tarjetas) &rsaquo; Ranking Mundial FIFA.",
+         locale:"es-ES" },
+    pt:{ title:"Classificação dos melhores terceiros",
+         subtitle:"Copa do Mundo 2026 &mdash; as 8 melhores seleções em terceiro se classificam para as oitavas (16-avos).",
+         pos:"Pos", group:"Gr", team:"Seleção", played:"J", gd:"SG", gf:"GP", fair:"Fair-Play", fifa:"FIFA", pts:"Pts",
+         playedFull:"Jogos disputados", gdFull:"Saldo de gols", gfFull:"Gols pró", fairFull:"Pontuação de fair-play", fifaFull:"Ranking Mundial da FIFA", ptsFull:"Pontos",
+         legendQ:"Classificada", legendE:"Eliminada", qualLine:"Linha de classificação",
+         updated:"Atualizado", updatedTip:"Data da última atualização dos dados", sourceLabel:"Fonte",
+         criteria:"Critérios de desempate da FIFA, em ordem: pontos &rsaquo; saldo de gols &rsaquo; gols marcados &rsaquo; fair-play (cartões) &rsaquo; Ranking Mundial da FIFA.",
+         locale:"pt-BR" }
+  };
+
+  /* Traduction des noms de pays (clé = nom anglais renvoyé par SportMonks).
+     Si une équipe manque, son nom source est affiché tel quel. */
+  var COUNTRY_NAMES = {
+    "Netherlands":{fr:"Pays-Bas",es:"Países Bajos",pt:"Países Baixos"},
+    "Brazil":{fr:"Brésil",es:"Brasil",pt:"Brasil"},
+    "Canada":{fr:"Canada",es:"Canadá",pt:"Canadá"},
+    "Egypt":{fr:"Égypte",es:"Egipto",pt:"Egito"},
+    "Spain":{fr:"Espagne",es:"España",pt:"Espanha"},
+    "Ghana":{fr:"Ghana",es:"Ghana",pt:"Gana"},
+    "Uzbekistan":{fr:"Ouzbékistan",es:"Uzbekistán",pt:"Uzbequistão"},
+    "Czech Republic":{fr:"Tchéquie",es:"Chequia",pt:"Tchéquia"},
+    "Ecuador":{fr:"Équateur",es:"Ecuador",pt:"Equador"},
+    "Jordan":{fr:"Jordanie",es:"Jordania",pt:"Jordânia"},
+    "Senegal":{fr:"Sénégal",es:"Senegal",pt:"Senegal"},
+    "Türkiye":{fr:"Turquie",es:"Turquía",pt:"Turquia"},
+    "Mexico":{fr:"Mexique",es:"México",pt:"México"},
+    "United States":{fr:"États-Unis",es:"Estados Unidos",pt:"Estados Unidos"},
+    "USA":{fr:"États-Unis",es:"Estados Unidos",pt:"Estados Unidos"},
+    "Switzerland":{fr:"Suisse",es:"Suiza",pt:"Suíça"},
+    "Morocco":{fr:"Maroc",es:"Marruecos",pt:"Marrocos"},
+    "Australia":{fr:"Australie",es:"Australia",pt:"Austrália"},
+    "South Korea":{fr:"Corée du Sud",es:"Corea del Sur",pt:"Coreia do Sul"},
+    "Korea Republic":{fr:"Corée du Sud",es:"Corea del Sur",pt:"Coreia do Sul"},
+    "Japan":{fr:"Japon",es:"Japón",pt:"Japão"},
+    "Poland":{fr:"Pologne",es:"Polonia",pt:"Polônia"},
+    "Norway":{fr:"Norvège",es:"Noruega",pt:"Noruega"},
+    "Germany":{fr:"Allemagne",es:"Alemania",pt:"Alemanha"},
+    "England":{fr:"Angleterre",es:"Inglaterra",pt:"Inglaterra"},
+    "France":{fr:"France",es:"Francia",pt:"França"},
+    "Argentina":{fr:"Argentine",es:"Argentina",pt:"Argentina"},
+    "Portugal":{fr:"Portugal",es:"Portugal",pt:"Portugal"},
+    "Italy":{fr:"Italie",es:"Italia",pt:"Itália"},
+    "Belgium":{fr:"Belgique",es:"Bélgica",pt:"Bélgica"},
+    "Croatia":{fr:"Croatie",es:"Croacia",pt:"Croácia"},
+    "Uruguay":{fr:"Uruguay",es:"Uruguay",pt:"Uruguai"},
+    "Colombia":{fr:"Colombie",es:"Colombia",pt:"Colômbia"},
+    "Saudi Arabia":{fr:"Arabie saoudite",es:"Arabia Saudí",pt:"Arábia Saudita"},
+    "Qatar":{fr:"Qatar",es:"Catar",pt:"Catar"},
+    "Scotland":{fr:"Écosse",es:"Escocia",pt:"Escócia"},
+    "Sweden":{fr:"Suède",es:"Suecia",pt:"Suécia"},
+    "Tunisia":{fr:"Tunisie",es:"Túnez",pt:"Tunísia"},
+    "Iran":{fr:"Iran",es:"Irán",pt:"Irã"},
+    "New Zealand":{fr:"Nouvelle-Zélande",es:"Nueva Zelanda",pt:"Nova Zelândia"},
+    "Ivory Coast":{fr:"Côte d'Ivoire",es:"Costa de Marfil",pt:"Costa do Marfim"},
+    "Cape Verde":{fr:"Cap-Vert",es:"Cabo Verde",pt:"Cabo Verde"},
+    "Curacao":{fr:"Curaçao",es:"Curazao",pt:"Curaçao"},
+    "Curaçao":{fr:"Curaçao",es:"Curazao",pt:"Curaçao"},
+    "Paraguay":{fr:"Paraguay",es:"Paraguay",pt:"Paraguai"},
+    "South Africa":{fr:"Afrique du Sud",es:"Sudáfrica",pt:"África do Sul"},
+    "Bosnia-Herzegovina":{fr:"Bosnie-Herzégovine",es:"Bosnia y Herzegovina",pt:"Bósnia e Herzegovina"},
+    "Haiti":{fr:"Haïti",es:"Haití",pt:"Haiti"},
+    "Austria":{fr:"Autriche",es:"Austria",pt:"Áustria"},
+    "Congo DR":{fr:"RD Congo",es:"RD Congo",pt:"RD Congo"},
+    "DR Congo":{fr:"RD Congo",es:"RD Congo",pt:"RD Congo"}
+  };
+  function translateName(name){
+    var m = COUNTRY_NAMES[name];
+    return (m && m[WC26_CONFIG.lang]) || name;
+  }
+
+  var QUALIFY_COUNT = 8; // 8 meilleurs 3èmes qualifiés
+
+  /* ============================================================
+     4) LOGIQUE
+     ============================================================ */
+  var root = document.getElementById("wc26-best3");
+  if(!root) return;
+  var L = I18N[WC26_CONFIG.lang] || I18N.fr;
+
+  function pointsFor(t){
+    // Si "pts" n'est pas fourni, on ne le calcule pas (la phase de groupes
+    // fournit directement les points). On lit t.pts si présent, sinon 0.
+    return (typeof t.pts === "number") ? t.pts : 0;
+  }
+
+  // Comparateur : critères FIFA a→f
+  function compare(a,b){
+    var pa=pointsFor(a), pb=pointsFor(b);
+    if(pb!==pa) return pb-pa;            // a) points
+    if(b.gd!==a.gd) return b.gd-a.gd;    // b) différence de buts
+    if(b.gf!==a.gf) return b.gf-a.gf;    // c) buts marqués
+    var fa=(typeof a.fair==="number")?a.fair:0, fb=(typeof b.fair==="number")?b.fair:0;
+    if(fb!==fa) return fb-fa;            // d) fair-play (plus haut = mieux)
+    var ra=(typeof a.fifa==="number")?a.fifa:9999, rb=(typeof b.fifa==="number")?b.fifa:9999;
+    return ra-rb;                        // e/f) classement FIFA (plus petit = mieux)
+  }
+
+  function esc(s){ var d=document.createElement("div"); d.textContent=String(s==null?"":s); return d.innerHTML; }
+  function fmtSigned(n){ return (n>0?"+":"") + n; }
+
+  function applyI18n(){
+    root.querySelectorAll("[data-i18n]").forEach(function(el){
+      var k=el.getAttribute("data-i18n"); if(L[k]!=null) el.innerHTML=L[k];
+    });
+    root.querySelectorAll("[data-i18n-attr]").forEach(function(el){
+      var attr=el.getAttribute("data-i18n-attr"), k=el.getAttribute("data-i18n-"+attr);
+      if(k && L[k]!=null) el.setAttribute(attr, L[k].replace(/<[^>]+>/g,""));
+    });
+  }
+
+  function render(data){
+    var teams = (data.teams||[]).slice().sort(compare);
+    var body = document.getElementById("wc26-body");
+    body.innerHTML = "";
+
+    teams.forEach(function(t, i){
+      var rank = i+1;
+      var qualified = rank <= QUALIFY_COUNT;
+
+      // Ligne de séparation qualif/élim juste après le 8ème
+      if(rank === QUALIFY_COUNT+1){
+        var sep = document.createElement("tr");
+        sep.className = "wc26-cutline";
+        sep.innerHTML = '<td colspan="8"><div class="wc26-cut">'+esc(L.qualLine)+'</div></td>';
+        body.appendChild(sep);
+      }
+
+      // Drapeau : logo SportMonks en priorité, sinon flagcdn si code ISO-2.
+      var flag = t.logo
+        ? '<img class="wc26-flag" loading="lazy" alt="" src="'+esc(t.logo)+'">'
+        : (t.code && String(t.code).length===2
+            ? '<img class="wc26-flag" loading="lazy" alt="" src="https://flagcdn.com/w40/'+esc(String(t.code).toLowerCase())+'.png">'
+            : '');
+
+      var tr = document.createElement("tr");
+      tr.className = qualified ? "is-q" : "is-e";
+      tr.innerHTML =
+        '<td><div class="wc26-pos">'+rank+'</div></td>'+
+        '<td><div class="wc26-grp">'+esc(t.group)+'</div></td>'+
+        '<td><div class="wc26-teamcell">'+flag+'<span class="wc26-name">'+esc(translateName(t.name))+'</span></div></td>'+
+        '<td><div class="wc26-pts">'+pointsFor(t)+'</div></td>'+
+        '<td><div class="wc26-num">'+fmtSigned(t.gd||0)+'</div></td>'+
+        '<td><div class="wc26-num">'+esc(t.gf!=null?t.gf:"")+'</div></td>'+
+        '<td class="wc26-fair-cell"><div class="wc26-num">'+esc(t.fair!=null?t.fair:"")+'</div></td>'+
+        '<td class="wc26-fifa-cell"><div class="wc26-num">'+esc(t.fifa!=null?("#"+t.fifa):"")+'</div></td>';
+      body.appendChild(tr);
+    });
+
+    // Date de mise à jour
+    var timeEl = document.getElementById("wc26-time");
+    if(data.updated){
+      var d = new Date(data.updated);
+      if(!isNaN(d)){
+        timeEl.textContent = d.toLocaleString(L.locale,{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
+        timeEl.setAttribute("datetime", data.updated);
+      } else { timeEl.textContent = data.updated; }
+    } else {
+      var upd = timeEl.closest(".wc26-updated"); if(upd) upd.style.display="none";
+    }
+
+    root.setAttribute("data-state","ready");
+  }
+
+  function boot(){
+    applyI18n();
+    if(WC26_CONFIG.dataUrl){
+      fetch(WC26_CONFIG.dataUrl, {cache:"no-store"})
+        .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function(json){ render(json); })
+        .catch(function(){ render(WC26_DATA); }); // repli sur les données locales
+      if(WC26_CONFIG.refreshSeconds>0){
+        setInterval(function(){
+          fetch(WC26_CONFIG.dataUrl,{cache:"no-store"})
+            .then(function(r){return r.json();}).then(render).catch(function(){});
+        }, WC26_CONFIG.refreshSeconds*1000);
+      }
+    } else {
+      render(WC26_DATA);
+    }
+  }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+})();
+</script>
