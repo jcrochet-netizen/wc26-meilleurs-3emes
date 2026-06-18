@@ -54,11 +54,21 @@ node fetch-data.js     # nécessite Node 20+ et un .env avec le token
 
 ## Versions linguistiques
 
-Le widget embarque les 4 langues. Pour servir une langue, change une ligne :
+Le widget embarque les 5 langues. Pour servir une langue, change une ligne :
 ```js
-lang: "fr"   // ou "en", "es", "pt"
+lang: "fr"   // ou "en", "es", "pt", "it"
 ```
 Les noms de pays sont traduits via la table `COUNTRY_NAMES` dans le widget.
+
+Des fichiers prêts à coller (un par langue, `dataUrl` déjà configurée) sont fournis :
+
+| Langue | Fichier |
+|---|---|
+| Français | `widget-meilleurs-3emes-wc2026.html` |
+| Anglais | `widget-en.html` |
+| Espagnol | `widget-es.html` |
+| Portugais (BR) | `widget-pt.html` |
+| Italien | `widget-it.html` |
 
 ## Critères de départage (tous implémentés)
 
