@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-18T22:18:42.445Z",
+  "updated": "2026-06-19T04:55:12.402Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
@@ -61,20 +61,6 @@
       "fifa": 7
     },
     {
-      "group": "B",
-      "id": 18572,
-      "name": "Canada",
-      "code": "CAN",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/12/18572.png",
-      "played": 1,
-      "pts": 1,
-      "gf": 1,
-      "ga": 1,
-      "gd": 0,
-      "fair": -3,
-      "fifa": 32
-    },
-    {
       "group": "H",
       "id": 18710,
       "name": "Spain",
@@ -101,6 +87,20 @@
       "gd": -1,
       "fair": -1,
       "fifa": 44
+    },
+    {
+      "group": "B",
+      "id": 18625,
+      "name": "Bosnia and Herzegovina",
+      "code": "BIH",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/1/18625.png",
+      "played": 2,
+      "pts": 1,
+      "gf": 2,
+      "ga": 5,
+      "gd": -3,
+      "fair": -9,
+      "fifa": 63
     },
     {
       "group": "E",
