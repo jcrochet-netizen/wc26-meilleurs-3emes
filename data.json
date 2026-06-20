@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-20T17:39:09.551Z",
+  "updated": "2026-06-20T19:44:46.289Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
@@ -34,17 +34,17 @@
     },
     {
       "group": "F",
-      "id": 18694,
-      "name": "Netherlands",
-      "code": "NED",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/6/18694.png",
+      "id": 18597,
+      "name": "Japan",
+      "code": "JPN",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/5/18597.png",
       "played": 1,
       "pts": 1,
       "gf": 2,
       "ga": 2,
       "gd": 0,
-      "fair": -3,
-      "fifa": 8
+      "fair": 0,
+      "fifa": 17
     },
     {
       "group": "G",
