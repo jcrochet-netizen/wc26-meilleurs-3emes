@@ -1,9 +1,23 @@
 {
-  "updated": "2026-06-19T23:02:53.058Z",
+  "updated": "2026-06-20T04:09:46.286Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
   "teams": [
+    {
+      "group": "C",
+      "id": 18706,
+      "name": "Scotland",
+      "code": "SCO",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18706.png",
+      "played": 2,
+      "pts": 3,
+      "gf": 1,
+      "ga": 1,
+      "gd": 0,
+      "fair": -4,
+      "fifa": 38
+    },
     {
       "group": "F",
       "id": 18694,
@@ -17,20 +31,6 @@
       "gd": 0,
       "fair": -3,
       "fifa": 8
-    },
-    {
-      "group": "C",
-      "id": 18704,
-      "name": "Brazil",
-      "code": "BRA",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/16/18704.png",
-      "played": 1,
-      "pts": 1,
-      "gf": 1,
-      "ga": 1,
-      "gd": 0,
-      "fair": -2,
-      "fifa": 5
     },
     {
       "group": "G",
