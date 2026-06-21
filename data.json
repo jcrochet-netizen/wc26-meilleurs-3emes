@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-21T17:46:49.817Z",
+  "updated": "2026-06-21T19:50:44.758Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
@@ -48,17 +48,17 @@
     },
     {
       "group": "G",
-      "id": 18743,
-      "name": "Belgium",
-      "code": "BEL",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18743.png",
+      "id": 18546,
+      "name": "Egypt",
+      "code": "EGY",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18546.png",
       "played": 1,
       "pts": 1,
       "gf": 1,
       "ga": 1,
       "gd": 0,
       "fair": -2,
-      "fifa": 10
+      "fifa": 29
     },
     {
       "group": "K",
@@ -76,17 +76,17 @@
     },
     {
       "group": "H",
-      "id": 18710,
-      "name": "Spain",
-      "code": "ESP",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/22/18710.png",
+      "id": 18823,
+      "name": "Cape Verde Islands",
+      "code": "CPV",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18823.png",
       "played": 1,
       "pts": 1,
       "gf": 0,
       "ga": 0,
       "gd": 0,
       "fair": -1,
-      "fifa": 3
+      "fifa": 64
     },
     {
       "group": "A",
