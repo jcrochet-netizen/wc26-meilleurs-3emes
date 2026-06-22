@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-21T23:20:13.638Z",
+  "updated": "2026-06-22T04:59:55.524Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
@@ -47,18 +47,32 @@
       "fifa": 42
     },
     {
-      "group": "G",
-      "id": 18613,
-      "name": "New Zealand",
-      "code": "NZL",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/21/18613.png",
-      "played": 1,
-      "pts": 1,
+      "group": "H",
+      "id": 18823,
+      "name": "Cape Verde Islands",
+      "code": "CPV",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18823.png",
+      "played": 2,
+      "pts": 2,
       "gf": 2,
       "ga": 2,
       "gd": 0,
-      "fair": 0,
-      "fifa": 82
+      "fair": -3,
+      "fifa": 64
+    },
+    {
+      "group": "G",
+      "id": 18743,
+      "name": "Belgium",
+      "code": "BEL",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18743.png",
+      "played": 2,
+      "pts": 2,
+      "gf": 1,
+      "ga": 1,
+      "gd": 0,
+      "fair": -7,
+      "fifa": 10
     },
     {
       "group": "K",
@@ -73,20 +87,6 @@
       "gd": 0,
       "fair": -3,
       "fifa": 7
-    },
-    {
-      "group": "H",
-      "id": 18823,
-      "name": "Cape Verde Islands",
-      "code": "CPV",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18823.png",
-      "played": 1,
-      "pts": 1,
-      "gf": 0,
-      "ga": 0,
-      "gd": 0,
-      "fair": -2,
-      "fifa": 64
     },
     {
       "group": "A",
