@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-22T22:07:57.592Z",
+  "updated": "2026-06-23T03:59:45.486Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
@@ -145,20 +145,6 @@
       "fifa": 34
     },
     {
-      "group": "I",
-      "id": 18558,
-      "name": "Senegal",
-      "code": "SEN",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18558.png",
-      "played": 1,
-      "pts": 0,
-      "gf": 1,
-      "ga": 3,
-      "gd": -2,
-      "fair": 0,
-      "fifa": 16
-    },
-    {
       "group": "J",
       "id": 18559,
       "name": "Jordan",
@@ -171,6 +157,20 @@
       "gd": -2,
       "fair": 0,
       "fifa": 67
+    },
+    {
+      "group": "I",
+      "id": 18558,
+      "name": "Senegal",
+      "code": "SEN",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18558.png",
+      "played": 2,
+      "pts": 0,
+      "gf": 3,
+      "ga": 6,
+      "gd": -3,
+      "fair": 0,
+      "fifa": 16
     }
   ]
 }
