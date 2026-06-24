@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T23:11:41.289Z",
+  "updated": "2026-06-24T04:01:59.648Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
@@ -31,6 +31,20 @@
       "gd": 0,
       "fair": -4,
       "fifa": 38
+    },
+    {
+      "group": "L",
+      "id": 18588,
+      "name": "Croatia",
+      "code": "CRO",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18588.png",
+      "played": 2,
+      "pts": 3,
+      "gf": 3,
+      "ga": 4,
+      "gd": -1,
+      "fair": -1,
+      "fifa": 11
     },
     {
       "group": "J",
@@ -89,20 +103,6 @@
       "fifa": 10
     },
     {
-      "group": "K",
-      "id": 18552,
-      "name": "Congo DR",
-      "code": "COD",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/18552.png",
-      "played": 1,
-      "pts": 1,
-      "gf": 1,
-      "ga": 1,
-      "gd": 0,
-      "fair": -1,
-      "fifa": 43
-    },
-    {
       "group": "A",
       "id": 18718,
       "name": "Czech Republic",
@@ -115,6 +115,20 @@
       "gd": -1,
       "fair": -1,
       "fifa": 44
+    },
+    {
+      "group": "K",
+      "id": 18552,
+      "name": "Congo DR",
+      "code": "COD",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/24/18552.png",
+      "played": 2,
+      "pts": 1,
+      "gf": 1,
+      "ga": 2,
+      "gd": -1,
+      "fair": -2,
+      "fifa": 43
     },
     {
       "group": "E",
@@ -143,20 +157,6 @@
       "gd": -3,
       "fair": -9,
       "fifa": 63
-    },
-    {
-      "group": "L",
-      "id": 18717,
-      "name": "Panama",
-      "code": "PAN",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/29/18717.png",
-      "played": 1,
-      "pts": 0,
-      "gf": 0,
-      "ga": 1,
-      "gd": -1,
-      "fair": -2,
-      "fifa": 34
     },
     {
       "group": "I",
