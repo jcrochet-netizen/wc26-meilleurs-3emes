@@ -1,9 +1,23 @@
 {
-  "updated": "2026-06-25T20:08:08.525Z",
+  "updated": "2026-06-25T23:22:37.086Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
   "teams": [
+    {
+      "group": "E",
+      "id": 18573,
+      "name": "Ecuador",
+      "code": "ECU",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18573.png",
+      "played": 3,
+      "pts": 4,
+      "gf": 2,
+      "ga": 2,
+      "gd": 0,
+      "fair": -5,
+      "fifa": 28
+    },
     {
       "group": "B",
       "id": 18625,
@@ -143,20 +157,6 @@
       "gd": -1,
       "fair": -2,
       "fifa": 43
-    },
-    {
-      "group": "E",
-      "id": 18573,
-      "name": "Ecuador",
-      "code": "ECU",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/13/18573.png",
-      "played": 2,
-      "pts": 1,
-      "gf": 0,
-      "ga": 1,
-      "gd": -1,
-      "fair": -2,
-      "fifa": 28
     },
     {
       "group": "I",
