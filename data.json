@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T23:09:27.710Z",
+  "updated": "2026-06-25T04:02:36.621Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
@@ -33,20 +33,6 @@
       "fifa": 35
     },
     {
-      "group": "C",
-      "id": 18706,
-      "name": "Scotland",
-      "code": "SCO",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18706.png",
-      "played": 2,
-      "pts": 3,
-      "gf": 1,
-      "ga": 1,
-      "gd": 0,
-      "fair": -4,
-      "fifa": 38
-    },
-    {
       "group": "L",
       "id": 18588,
       "name": "Croatia",
@@ -59,6 +45,20 @@
       "gd": -1,
       "fair": -1,
       "fifa": 11
+    },
+    {
+      "group": "A",
+      "id": 18567,
+      "name": "Korea Republic",
+      "code": "KOR",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18567.png",
+      "played": 3,
+      "pts": 3,
+      "gf": 2,
+      "ga": 3,
+      "gd": -1,
+      "fair": -4,
+      "fifa": 22
     },
     {
       "group": "J",
@@ -89,6 +89,20 @@
       "fifa": 42
     },
     {
+      "group": "C",
+      "id": 18706,
+      "name": "Scotland",
+      "code": "SCO",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/18/18706.png",
+      "played": 3,
+      "pts": 3,
+      "gf": 1,
+      "ga": 4,
+      "gd": -3,
+      "fair": -5,
+      "fifa": 38
+    },
+    {
       "group": "H",
       "id": 18823,
       "name": "Cape Verde Islands",
@@ -115,20 +129,6 @@
       "gd": 0,
       "fair": -7,
       "fifa": 10
-    },
-    {
-      "group": "A",
-      "id": 18718,
-      "name": "Czech Republic",
-      "code": "CZE",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/30/18718.png",
-      "played": 2,
-      "pts": 1,
-      "gf": 2,
-      "ga": 3,
-      "gd": -1,
-      "fair": -1,
-      "fifa": 44
     },
     {
       "group": "K",
