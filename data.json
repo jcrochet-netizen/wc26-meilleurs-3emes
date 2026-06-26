@@ -1,9 +1,23 @@
 {
-  "updated": "2026-06-25T23:22:37.086Z",
+  "updated": "2026-06-26T04:09:51.111Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
   "teams": [
+    {
+      "group": "F",
+      "id": 18564,
+      "name": "Sweden",
+      "code": "SWE",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18564.png",
+      "played": 3,
+      "pts": 4,
+      "gf": 7,
+      "ga": 7,
+      "gd": 0,
+      "fair": -5,
+      "fifa": 35
+    },
     {
       "group": "E",
       "id": 18573,
@@ -33,18 +47,18 @@
       "fifa": 63
     },
     {
-      "group": "F",
-      "id": 18564,
-      "name": "Sweden",
-      "code": "SWE",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/4/18564.png",
-      "played": 2,
-      "pts": 3,
-      "gf": 6,
-      "ga": 6,
-      "gd": 0,
-      "fair": -3,
-      "fifa": 35
+      "group": "D",
+      "id": 18723,
+      "name": "Paraguay",
+      "code": "PAR",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/3/18723.png",
+      "played": 3,
+      "pts": 4,
+      "gf": 2,
+      "ga": 4,
+      "gd": -2,
+      "fair": -11,
+      "fifa": 42
     },
     {
       "group": "L",
@@ -87,20 +101,6 @@
       "gd": -2,
       "fair": -1,
       "fifa": 31
-    },
-    {
-      "group": "D",
-      "id": 18723,
-      "name": "Paraguay",
-      "code": "PAR",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/3/18723.png",
-      "played": 2,
-      "pts": 3,
-      "gf": 2,
-      "ga": 4,
-      "gd": -2,
-      "fair": -10,
-      "fifa": 42
     },
     {
       "group": "C",
