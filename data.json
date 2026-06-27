@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T21:10:46.350Z",
+  "updated": "2026-06-27T23:08:21.776Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
@@ -17,6 +17,20 @@
       "gd": 0,
       "fair": -5,
       "fifa": 35
+    },
+    {
+      "group": "L",
+      "id": 18553,
+      "name": "Ghana",
+      "code": "GHA",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/25/18553.png",
+      "played": 3,
+      "pts": 4,
+      "gf": 2,
+      "ga": 2,
+      "gd": 0,
+      "fair": -3,
+      "fifa": 73
     },
     {
       "group": "E",
@@ -87,20 +101,6 @@
       "gd": 0,
       "fair": -6,
       "fifa": 24
-    },
-    {
-      "group": "L",
-      "id": 18588,
-      "name": "Croatia",
-      "code": "CRO",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18588.png",
-      "played": 2,
-      "pts": 3,
-      "gf": 3,
-      "ga": 4,
-      "gd": -1,
-      "fair": -1,
-      "fifa": 11
     },
     {
       "group": "A",
