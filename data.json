@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T23:12:23.642Z",
+  "updated": "2026-06-27T03:55:31.083Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
@@ -131,20 +131,6 @@
       "fifa": 38
     },
     {
-      "group": "H",
-      "id": 18823,
-      "name": "Cape Verde Islands",
-      "code": "CPV",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/7/18823.png",
-      "played": 2,
-      "pts": 2,
-      "gf": 2,
-      "ga": 2,
-      "gd": 0,
-      "fair": -3,
-      "fifa": 64
-    },
-    {
       "group": "G",
       "id": 18743,
       "name": "Belgium",
@@ -157,6 +143,20 @@
       "gd": 0,
       "fair": -7,
       "fifa": 10
+    },
+    {
+      "group": "H",
+      "id": 15251,
+      "name": "Uruguay",
+      "code": "URU",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/19/15251.png",
+      "played": 3,
+      "pts": 2,
+      "gf": 3,
+      "ga": 4,
+      "gd": -1,
+      "fair": -9,
+      "fifa": 18
     },
     {
       "group": "K",
