@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T03:55:31.083Z",
+  "updated": "2026-06-27T06:57:20.256Z",
   "source": "SportMonks + FIFA ranking (11/06/2026)",
   "season": "2026",
   "qualifyCount": 8,
@@ -75,6 +75,20 @@
       "fifa": 16
     },
     {
+      "group": "G",
+      "id": 18652,
+      "name": "Iran",
+      "code": "IRN",
+      "logo": "https://cdn.sportmonks.com/images/soccer/teams/28/18652.png",
+      "played": 3,
+      "pts": 3,
+      "gf": 3,
+      "ga": 3,
+      "gd": 0,
+      "fair": -6,
+      "fifa": 24
+    },
+    {
       "group": "L",
       "id": 18588,
       "name": "Croatia",
@@ -129,20 +143,6 @@
       "gd": -3,
       "fair": -5,
       "fifa": 38
-    },
-    {
-      "group": "G",
-      "id": 18743,
-      "name": "Belgium",
-      "code": "BEL",
-      "logo": "https://cdn.sportmonks.com/images/soccer/teams/23/18743.png",
-      "played": 2,
-      "pts": 2,
-      "gf": 1,
-      "ga": 1,
-      "gd": 0,
-      "fair": -7,
-      "fifa": 10
     },
     {
       "group": "H",
